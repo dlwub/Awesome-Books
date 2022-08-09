@@ -4,17 +4,41 @@ const bookTitle = document.getElementById('title-input');
 const bookAuthor = document.getElementById('author-input');
 const booksList = document.getElementById('books-list');
 
+function inArray(title){
+  for(let i=0; i < booksArray.length; i+=1 ){
+    if(booksArray[i]['title']  === title){
+      // return and the index it was found
+      // console.log("found title")
+      return [true, 1]
+    }
+  }
+  return [false, -1]
+}
+
 //Add new book
 function addBook(title, author) {
-  let book = {
-    "title": title,
-    "author": author,
-  };
-  console.log(booksArray);
-  booksArray.push(book);
-  clearList();
-  booksArray.forEach(displayBooks);
+
+  if(title && author) {
+    let testResult = inArray(title)
+    if ( testResult[0]){
+      // title in we can update author
+      booksArray[testResult[1]]["Author"] = author
+      
+    }else{
+      let book = {
+        "title": title,
+        "author": author,
+      };
+      // not in
+      booksArray.push(book);
+      clearList();
+      booksArray.forEach(displayBooks);
+      
+    }
+  }
+
 }
+
 //Remove book
 function removeBook(title){
   booksArray = booksArray.filter((book) => {
@@ -25,6 +49,7 @@ function removeBook(title){
   localStorage.setItem('booksData', JSON.stringify(booksArray));
   booksArray.forEach(displayBooks);
 }
+
 //Clear the 
 function clearList(){
   booksList.innerHTML = ""
@@ -47,6 +72,7 @@ bookForm.addEventListener('submit', (e) => {
   let title = bookTitle.value;
   let author = bookAuthor.value;
   if(title!=="" && author!==""){    
+    
     addBook(title, author); 
     //Add book to local storage
     localStorage.setItem('booksData', JSON.stringify(booksArray));
@@ -60,5 +86,4 @@ window.addEventListener('load', ()=> {
     booksArray = booksData;    
     booksArray.forEach(displayBooks); 
   }  
-})
-
+}); 
