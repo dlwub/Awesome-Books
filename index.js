@@ -39,19 +39,21 @@ function removeBook(title) {
   clearList();
   // Update localstorage
   localStorage.setItem('booksData', JSON.stringify(booksArray));
-  booksArray.forEach(updateBooks);
-  // location.reload()
+  booksArray.forEach(updateBooks);  
 }
-const a = removeBook.name;
+
 // Show list of books in collection
 function displayBooks(book) {
   booksList.innerHTML += `
   <div> 
     <p>${book.title}</p>
     <p>${book.author}</p>    
-    <button id="${book.title}" type='button' onclick= "${a}(this.id)" >Remove</button>
+    <button id="${book.title}" type='button'>Remove</button>
   </div>
   <hr>
+  document.getElementById("${book.title}").onclick = function() {
+    removeBook(${this.id});
+  }
   `;
 }
 
