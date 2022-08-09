@@ -2,8 +2,7 @@
 
 # Awesome Books
 
-> 
-
+> In this project, you built a basic website that allows users to add/remove books from a list. We achieved that by using JavaScript objects and arrays. We also needed to dynamically modify the DOM and add basic events.
 
 ## Built With
 
