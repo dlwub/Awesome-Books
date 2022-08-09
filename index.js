@@ -1,4 +1,5 @@
 let booksArray = [];
+
 const bookForm = document.getElementById('book-form');
 const bookTitle = document.getElementById('title-input');
 const bookAuthor = document.getElementById('author-input');
@@ -22,7 +23,7 @@ function addBook(title, author) {
     let testResult = inArray(title)
     if ( testResult[0]){
       // title in we can update author
-      booksArray[testResult[1]]["Author"] = author
+      booksArray[testResult[1]]["author"] = author
       
     }else{
       let book = {
