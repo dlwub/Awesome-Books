@@ -18,21 +18,18 @@ function inArray(title) {
 }
 
 function addBookToArray(title, author) {
-  // add book with title list of array
-  // check for empty book
   if (title && author) {
     const testResult = inArray(title);
 
     if (testResult[0]) {
-      // title in we can update author
       booksArray[testResult[1]].Author = author;
     } else {
       const book = {
+        id : title,
         Title: title,
         Author: author,
       };
-      // not in
-      booksArray.push(book);
+      booksArray = booksArray.concat(book);
     }
   }
 }
@@ -42,7 +39,7 @@ function addToPage(title, author) {
     const str = `
         <p>${title}</p>
         <p>${author}</p>
-        <button id="${title}" type="submit" onclick= removeBook(this.id) id="remove-book">Remove</button>
+        <button id="${title}" type="submit" onclick= removeBook(this.id)>Remove</button>
         <hr>
         `;
 
@@ -69,30 +66,28 @@ function populateLocalStorage(key, value) {
 }
 
 function removeBook(title) {
-  // booksArray = booksArray.filter((book) => book.title !== title);
-  const loc = inArray(title);
-  if (loc[0]) {
-    bookList.innerHTML = '';
-    booksArray.splice(loc[1], 1);
-    populateLocalStorage('bookList', booksArray);
-    pageLoadChecks();
-  }
+  booksArray = booksArray.filter((book) => book.Title !== title);
+  bookList.innerHTML = '';
+  populateLocalStorage('bookList', booksArray);
+  pageLoadChecks();
 }
 
 bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const title = titleForm.value;
   const author = authorForm.value;
-
   addBookToArray(title, author);
 
   // store data to localStorage to retain data on pageload
   populateLocalStorage('bookList', booksArray);
 
   // new book  to page
-  // addToPage(title, author)
   bookList.innerHTML = '';
   pageLoadChecks();
+
+  titleForm.value = '';
+  authorForm.value = '';
+
 });
 
 document.body.onload = pageLoadChecks();
