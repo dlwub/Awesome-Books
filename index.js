@@ -25,7 +25,7 @@ function addBookToArray(title, author) {
       booksArray[testResult[1]].Author = author;
     } else {
       const book = {
-        id : title,
+        id: title,
         Title: title,
         Author: author,
       };
@@ -87,7 +87,6 @@ bookForm.addEventListener('submit', (e) => {
 
   titleForm.value = '';
   authorForm.value = '';
-
 });
 
 document.body.onload = pageLoadChecks();
